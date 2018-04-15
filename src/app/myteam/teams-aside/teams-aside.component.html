@@ -1,0 +1,30 @@
+<div style="height: 100%; width: 100%; border: 1px solid rgba(0,0,0,0.2)">
+  <div id="team-chooser">
+    <div id="team-chooser-btn">
+      <button type="button" class="btn btn-light" (click)="toggleTeamChooser()">
+        <span class="oi oi-menu"></span>
+      </button>
+    </div>
+    <div id="gameweek-name-btns">
+      <button type="button" *ngFor="let gwName of generateGameweekNames(5)" class="btn btn-light btn-sm gw-btn">
+        {{ gwName }}
+      </button>
+    </div>
+    <div id="value-btn">
+      <button type="button" class="btn btn-light btn-sm" (click)="toggleTeamChooser()">
+        <span class="oi oi-sort-descending"></span>
+      </button>
+    </div>
+
+  </div>
+  <div class="slide-start" [ngClass]="{'slide-in': teamChooserStatus === 'visible', 'slide-out': teamChooserStatus === 'hidden'}" *ngIf="fixtures; else loading_content">
+    <div class="content" [ngClass]="{'fade-in': teamChooserStatus === 'visible', 'fade-out': teamChooserStatus === 'hidden'}" >
+      <fpl-team *ngFor="let team of teams" [team]="team" (teamClicked)="selectPlayers($event)"></fpl-team>
+    </div>
+  </div>
+  <div id="players-list">
+    <fpl-player *ngFor="let player of players" [player]="player"></fpl-player>
+  </div>
+</div>
+
+<ng-template #loading_content>Loading...</ng-template>

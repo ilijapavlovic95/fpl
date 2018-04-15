@@ -1,0 +1,41 @@
+.team-link {
+    cursor: pointer;
+    height: 5%;
+    background: white;
+    width: 100%;
+    border-bottom: 1px solid gray;
+    display: flex;
+}
+
+.team-link > .logo {
+    flex: 2;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: none;
+    border-right: 1px solid gray;
+    padding: 0;
+    align-self: center;
+}
+
+.team-link > .fixtures {
+    flex: 6;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+}
+
+.team-link > .fixtures > small{
+    flex: 1 0 20%;
+    align-self: center;
+}
+
+.team-link > .fixtures-value {
+    flex: 1;
+    text-align: center;
+    border: none;
+    background: rgba(255,255,255,0);
+    cursor: pointer;
+}
