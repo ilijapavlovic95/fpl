@@ -4,8 +4,21 @@
       <div style="width: 100%; height: 90%;padding: 5px">
         <fpl-formation></fpl-formation>
       </div>
-      <div style="width: 100%; height: 10%;">
+      <div id="gw-info">
+        <div class="gw-switch">
+          <button type="button" class="btn btn-light" (click)="lowerCurrentGW()">
+            <span class="oi oi-chevron-left" style="opacity: 0.8"></span>
+          </button>
+        </div>
+        <div id="gw-name"><h3>Gameweek {{ current_gameweek }}</h3></div>
+        <div class="gw-switch">
+          <button type="button" class="btn btn-light" (click)="raiseCurrentGW()">
+            <span class="oi oi-chevron-right" style="opacity: 0.8"></span>
+          </button>
+        </div>
+        <div id="myteam-save-changes">
 
+        </div>
       </div>
     </div>
 

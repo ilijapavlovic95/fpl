@@ -15,8 +15,12 @@ export class MessageService {
     this.subject.next();
   }
 
-  getMessage(): Observable<any> {
+  getSubject(): Observable<any> {
     return this.subject.asObservable();
+  }
+
+  sendGameweekNumber(gwNumber: number) {
+    this.subject.next({ gameweek: gwNumber });
   }
 
 }

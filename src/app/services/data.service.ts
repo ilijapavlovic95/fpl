@@ -209,4 +209,16 @@ export class DataService {
     return null;
   }
 
+  generateGameweekStringForView(fixture: Gameweek): string {
+    if (fixture.matches.length === 0) {
+      return ' / ';
+    }
+    if (fixture.matches.length === 1) {
+      return fixture.matches[0].opponent;
+    }
+    if (fixture.matches.length === 2) {
+      return fixture.matches[0].opponent + ', ' + fixture.matches[1].opponent;
+    }
+  }
+
 }

@@ -3,16 +3,16 @@
 
     <div id="formation-players">
         <div class="formation-position">
-
+            <fpl-player-formation *ngFor="let gk of getPlayersOnPosition('gk')" [player]="gk"></fpl-player-formation>
         </div>
         <div class="formation-position">
-
+            <fpl-player-formation *ngFor="let def of getPlayersOnPosition('def')" [player]="def"></fpl-player-formation>
         </div>
         <div class="formation-position">
-
+            <fpl-player-formation *ngFor="let mid of getPlayersOnPosition('mid')" [player]="mid"></fpl-player-formation>
         </div>
         <div class="formation-position">
-
+            <fpl-player-formation *ngFor="let att of getPlayersOnPosition('att')" [player]="att"></fpl-player-formation>
         </div>
     </div>
 

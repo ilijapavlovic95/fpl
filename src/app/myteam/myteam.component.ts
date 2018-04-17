@@ -17,6 +17,8 @@ export class MyteamComponent implements OnInit, OnDestroy {
   teams: Team[];
   myteam: MyTeam;
 
+  current_gameweek: number;
+
   subscription: Subscription;
   loadingFinished: boolean;
 
@@ -28,6 +30,8 @@ export class MyteamComponent implements OnInit, OnDestroy {
     this.dataService.fetchData('fixtures').subscribe(
       (dataFixtures) => {
         this.dataService.fixtures = dataFixtures;
+        this.current_gameweek = Number(this.dataService.getNextGameweek().split(' ')[1]);
+        console.log(this.current_gameweek);
         this.dataService.fetchData('teams').subscribe(
           (dataTeams) => {
             this.dataService.generateTeams(dataTeams);
@@ -43,7 +47,7 @@ export class MyteamComponent implements OnInit, OnDestroy {
       (error) => console.log(error)
     );
 
-    this.subscription = this.messageService.getMessage().subscribe(
+    this.subscription = this.messageService.getSubject().subscribe(
       (message) => {
         console.log(message);
         this.myteam = this.myteamService.myTeam;
@@ -51,6 +55,28 @@ export class MyteamComponent implements OnInit, OnDestroy {
         this.loadingFinished = true;
       }
     );
+  }
+
+  lowerCurrentGW(): void {
+    this.current_gameweek--;
+    if (this.current_gameweek === 0) {
+      this.current_gameweek = 1;
+    }
+    if (this.current_gameweek === 39) {
+      this.current_gameweek = 38;
+    }
+    this.messageService.sendGameweekNumber(this.current_gameweek);
+  }
+
+  raiseCurrentGW(): void {
+    this.current_gameweek++;
+    if (this.current_gameweek === 0) {
+      this.current_gameweek = 1;
+    }
+    if (this.current_gameweek === 39) {
+      this.current_gameweek = 38;
+    }
+    this.messageService.sendGameweekNumber(this.current_gameweek);
   }
 
   ngOnDestroy() {

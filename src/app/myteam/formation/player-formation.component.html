@@ -1,3 +1,29 @@
-<div class="player-formation">
+<div class="player-formation-div" [style.opacity]="getPlayerDivOpacity()" (click)="switchFirstTeam()">
+    <div class="player-buttons">
+        <!-- <div class="player-button">
+            <span class="oi oi-menu"></span>
+        </div> -->
+
+        <!-- <button type="button" class="btn btn-light">
+            <span class="oi oi-chevron-right" style="opacity: 0.8"></span>
+        </button> -->
+    </div>
+
+    <div class="player-name">
+        <div class="player-name-background">
+
+        </div>
+        <h3>{{ player.detail.name }}</h3>
+    </div>
+
+    <div class="player-info" [style.background]="getTeamBackground()">
+        <div class="player-team">
+            <img [src]="getTeamLogoSrc()" [alt]="player.team.name" width="20px" height="20px">
+        </div>
+
+        <div class="player-opponents">
+            <small>{{ generateFixtureStringForView() }}</small>
+        </div>
+    </div>
 
 </div>

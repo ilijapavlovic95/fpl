@@ -44,15 +44,7 @@ export class TeamComponent implements OnInit {
     }
 
     generateStringForView(fixture: Gameweek) {
-        if (fixture.matches.length === 0) {
-            return ' / ';
-        }
-        if (fixture.matches.length === 1) {
-            return fixture.matches[0].opponent;
-        }
-        if (fixture.matches.length === 2) {
-            return fixture.matches[0].opponent + ', ' + fixture.matches[1].opponent;
-        }
+        return this.dataService.generateGameweekStringForView(fixture);
     }
 
     calculateNextMatchesValue(numberOfGameweeks: number) {

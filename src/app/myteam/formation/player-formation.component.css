@@ -1,5 +1,81 @@
-.player-formation{
-    width: 2rem;
-    height: 1rem;
-    border: 1px solid black;
+:host {
+    height: 70%;
+    flex: 0 1 15%;
+}
+
+.player-buttons{
+    height: 30px;
+    width: 100%;
+    margin-top:-30px;
+    display: flex;
+    justify-content: left;
+    align-items: flex-end;
+}
+
+.player-buttons > .player-button{
+    flex: 0 1 25px;
+    height: 25px;
+    color: rgb(39, 39, 39);
+    text-align: center;
+    margin-bottom: -8px;
+    margin-left: 5px;
+    cursor: pointer;
+    background: rgba(255,255,255,0.5);
+    border-radius: 2px;
+}
+
+.player-formation-div{
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(0,0,0,0.5);
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.player-name {
+    height: 70%;
+    border-bottom: 1px solid gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5px;
+    background: rgba(0,0,0,0.3);
+}
+
+.player-name > h3 {
+    font-size: 1em;
+    z-index: 100;
+    color: white;
+}
+
+.player-info{
+    height: 30%;
+    display: flex;
+    align-items: stretch;
+}
+
+.player-info > .player-team {
+    flex: 2;
+    background: rgba(255,255,255,0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-team > img {
+    opacity: 0.6;
+}
+
+.player-info > .player-opponents {
+    flex: 3;
+    border-left: 1px solid gray;
+    background: rgba(255,255,255,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+}
+
+.player-opponents > small{
+    font-weight: 700;
 }
