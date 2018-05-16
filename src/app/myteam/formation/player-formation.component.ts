@@ -1,9 +1,13 @@
+import { PlayerChooserDialogComponent } from './player-chooser-dialog.component';
 import { MessageService } from './../../services/message.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Gameweek } from './../../models/gameweek.model';
 import { DataService } from './../../services/data.service';
 import { MyTeamPlayer } from './../../models/myteam-player.model';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { PlayerOptionsDialogComponent } from './player-options-dialog.component';
+
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'fpl-player-formation',
@@ -17,7 +21,11 @@ export class PlayerFormationComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
-  constructor(private dataService: DataService, private messageService: MessageService) { }
+  constructor(
+    private dataService: DataService,
+    private messageService: MessageService,
+    private playerOptionsDialog: MatDialog,
+    private playerChooserDialog: MatDialog) { }
 
   ngOnInit() {
     this.currentGW = this.getGameweek(Number(this.dataService.getNextGameweek().split(' ')[1]));
@@ -51,8 +59,46 @@ export class PlayerFormationComponent implements OnInit, OnDestroy {
     return 0.2;
   }
 
-  switchFirstTeam(): void {
-    this.player.first_team = !this.player.first_team;
+  openDialog(): void {
+    const dialogRef = this.playerOptionsDialog.open(PlayerOptionsDialogComponent, {
+      width: '500px',
+      height: '280px',
+      data: this.player
+    });
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result === 'player-first-team') {
+          this.player.first_team = !this.player.first_team;
+        }
+        if (result === 'player-captain') {
+          this.player.captain = !this.player.captain;
+        }
+        if (result === 'change-player') {
+          this.openPlayerChooserDialog();
+        }
+      }
+    );
+  }
+
+  captainString(): string {
+    return this.player.captain ? '(C)' : '';
+  }
+
+  openPlayerChooserDialog(): void {
+    const dialogRef = this.playerChooserDialog.open(PlayerChooserDialogComponent, {
+      width: '600px',
+      height: '500px',
+      data: this.player.detail
+    });
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        console.log(result);
+        this.player = this.dataService.findPlayerFromTransferDialog(result.playerIn);
+        this.currentGW = this.getGameweek(Number(this.currentGW.name.split(' ')[1]));
+      }
+    );
   }
 
   ngOnDestroy() {

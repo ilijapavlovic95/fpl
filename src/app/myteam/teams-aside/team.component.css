@@ -3,7 +3,6 @@
     height: 5%;
     background: white;
     width: 100%;
-    border-bottom: 1px solid gray;
     display: flex;
 }
 
@@ -12,11 +11,18 @@
     text-align: center;
     display: flex;
     justify-content: space-around;
-    align-items: center;
     border: none;
-    border-right: 1px solid gray;
     padding: 0;
+    background: rgba(255,255,255,0.5);
+}
+
+.team-link > .logo > img {
     align-self: center;
+}
+
+.team-link > .logo > small {
+    align-self: center;
+    text-shadow: 1px 1px 1px rgba(50, 50, 50, 1);
 }
 
 .team-link > .fixtures {
@@ -25,17 +31,20 @@
     display: flex;
     justify-content: space-around;
     align-items: stretch;
+    background: rgba(255,255,255,0.5);
 }
 
 .team-link > .fixtures > small{
     flex: 1 0 20%;
     align-self: center;
+    font-size: 0.7em; 
+    opacity: 0.6;
 }
 
 .team-link > .fixtures-value {
     flex: 1;
     text-align: center;
     border: none;
-    background: rgba(255,255,255,0);
     cursor: pointer;
+    background: rgba(255,255,255,0.4);
 }

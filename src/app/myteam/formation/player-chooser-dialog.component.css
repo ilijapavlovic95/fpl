@@ -1,0 +1,84 @@
+#playerSearch {
+    width: 100%;
+    height: 15%;
+}
+
+#players-div {
+    height: 60%;
+}
+
+.player-dialog{
+    display: flex;
+    justify-content: space-between;
+    height: 3rem;
+    margin-bottom: 7px;
+}
+
+.bold-border {
+    border: 3px solid rgba(46, 204, 113,1);
+    border-radius: 3px;
+}
+
+.player-dialog-team{
+    flex: 0 1 15%;
+    background: rgba(255,255,255,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-dialog-name{
+    flex: 0 1 25%;
+    background: rgba(255,255,255,0.7);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+}
+
+.player-dialog-name:hover{
+    font-weight: 800;
+}
+
+.player-dialog-fixtures{
+    flex: 0 1 60%;
+    background: rgba(255,255,255,0.7);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.player-dialog-fixture{
+    flex: 0 1 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirm-transfer{
+    height: 12%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: rgba(46, 204, 113,0.7);
+    margin-top: 15px;
+    padding-top: 8px;
+    cursor: pointer;
+}
+
+.confirm-transfer:hover{
+    background: rgba(46, 204, 113,1);
+}
+
+.confirm-transfer > h6 {
+    flex: 0 1 35%;
+    text-align: center;
+}
+
+.confirm-transfer > h5 {
+    flex: 0 1 30%;
+    text-align: center;
+}

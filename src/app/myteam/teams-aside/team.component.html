@@ -1,11 +1,11 @@
-<div class="team-link" (click)="emitTeamClicked()">
+<div class="team-link" (click)="emitTeamClicked()" [style.background]="team.color">
     <div class="logo">
         <img [src]="'../../../assets/logos/' + team.code.toLowerCase() + '.png'" 
         [alt]="team.code + 'logo'" height="20px" width="20px">
-        <small style="font-weight: 600">{{ team.code }}</small>
+        <small style="font-weight: 600" [style.color]="team.color">{{ team.code }}</small>
     </div>
     <div class="fixtures">
-        <small style="font-size: 0.7em" *ngFor="let fixture of generateNextMatchesArray(5)">{{ generateStringForView(fixture) }}</small>
+        <small *ngFor="let fixture of generateNextMatchesArray(5)">{{ generateStringForView(fixture) }}</small>
     </div>
     <div class="fixtures-value">
         {{ calculateNextMatchesValue(5).avg_value_per_match }}

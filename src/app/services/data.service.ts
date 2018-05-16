@@ -19,7 +19,6 @@ import { Player } from '../models/player.model';
 export class DataService {
 
   teams: Team[];
-  players: any[];
   fixtures: any[];
 
   constructor(
@@ -43,7 +42,17 @@ export class DataService {
       );
   }
 
-  getPlayersForTeam(teamid: number) {
+  public getPlayers(): Player[] {
+    const players: Player[] = [];
+    for (const team of this.teams) {
+      for (const player of team.players) {
+        players.push(player);
+      }
+    }
+    return players;
+  }
+
+  /* getPlayersForTeam(teamid: number) {
     const teamPlayers = [];
     for (const player of this.players) {
       if (player.club === teamid) {
@@ -51,7 +60,7 @@ export class DataService {
       }
     }
     return teamPlayers;
-  }
+  } */
 
   getFixturesForTeam(team) {
     const teamFixtures: Gameweek[] = [];
@@ -91,7 +100,7 @@ export class DataService {
     return teamFixtures;
   }
 
-  calculateMatchValue(team, opponentKey, place) {
+  private calculateMatchValue(team, opponentKey, place) {
     const opponent = this.getTeamByKey(opponentKey);
     // opponentValue: stoke = (8 - 5) * 2 = 6
     let matchValue = (MatchValueConstants.HELP_VALUE - opponent.level) * MatchValueConstants.MULTIPLIER;
@@ -120,7 +129,16 @@ export class DataService {
     return null;
   }
 
-  getNextGameweek() {
+  private getTeamByCode(code): Team {
+    for (const team of this.teams) {
+      if (team.code === code) {
+        return team;
+      }
+    }
+    return null;
+  }
+
+  getNextGameweek(): string {
     const today = new Date();
     for (const gw of this.fixtures) {
       const gwName = gw.name;
@@ -131,6 +149,50 @@ export class DataService {
       }
     }
     return 'end of season';
+  }
+
+  getNextGameweekOrder(): number {
+    const today = new Date();
+    for (let index = 0; index < this.fixtures.length; index++) {
+      const gw = this.fixtures[index];
+      const gwOrder = index++;
+      for (const match of gw.matches) {
+        if (new Date(match.date) > today) {
+          return gwOrder;
+        }
+      }
+    }
+    return 38;
+  }
+
+  calculateNextMatchesValue(numberOfGameweeks: number, team: Team) {
+    const matchesArr = this.generateNextMatchesArray(numberOfGameweeks, team);
+    let sumValue = 0;
+    let countMatches = 0;
+    matchesArr.forEach((gameweek: Gameweek) => {
+      gameweek.matches.forEach(match => {
+        sumValue += match.match_value;
+        countMatches++;
+      });
+    });
+    const calculatedValues = {
+      sum_value: sumValue,
+      matches_count: countMatches,
+      avg_value_per_match: (sumValue / countMatches).toFixed(2)
+    };
+    return calculatedValues;
+  }
+
+  generateNextMatchesArray(numberOfGameweeks: number, team: Team) {
+    const matchesArr = [];
+    const nextGW: string = this.getNextGameweek();
+    const gwIndex = Number(nextGW.split(' ')[1]) - 1; // gameweek 34 is at index 33
+    const topIndex = gwIndex + numberOfGameweeks > 38 ? 38 : gwIndex + numberOfGameweeks;
+    for (let index = gwIndex; index < topIndex; index++) {
+      const fixture = team.fixtures[index];
+      matchesArr.push(fixture);
+    }
+    return matchesArr;
   }
 
   generateTeams(dataTeams: any[]) {
@@ -219,6 +281,21 @@ export class DataService {
     if (fixture.matches.length === 2) {
       return fixture.matches[0].opponent + ', ' + fixture.matches[1].opponent;
     }
+  }
+
+  findPlayerFromTransferDialog(playerIn): MyTeamPlayer {
+    for (const team of this.teams) {
+      if (playerIn.team.key === team.key) {
+        for (const player of team.players) {
+          if (playerIn.id === player.id) {
+            const myteamPlayer: MyTeamPlayer = new MyTeamPlayer(player, team, true, false);
+            console.log(myteamPlayer);
+            return myteamPlayer;
+          }
+        }
+      }
+    }
+    return null;
   }
 
 }

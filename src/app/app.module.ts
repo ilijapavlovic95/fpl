@@ -1,3 +1,4 @@
+import { PlayerChooserDialogComponent } from './myteam/formation/player-chooser-dialog.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
@@ -13,7 +14,11 @@ import { TeamsAsideComponent } from './myteam/teams-aside/teams-aside.component'
 import { MyTeamService } from './services/my-team.service';
 import { DataService } from './services/data.service';
 import { PlayerFormationComponent } from './myteam/formation/player-formation.component';
+import { PlayerOptionsDialogComponent } from './myteam/formation/player-options-dialog.component';
 import { MessageService } from './services/message.service';
+
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -25,11 +30,19 @@ import { MessageService } from './services/message.service';
     TeamsAsideComponent,
     TeamComponent,
     PlayerComponent,
-    PlayerFormationComponent
+    PlayerFormationComponent,
+    PlayerOptionsDialogComponent,
+    PlayerChooserDialogComponent
   ],
   imports: [
     BrowserModule,
-    HttpModule
+    HttpModule,
+    MatDialogModule,
+    BrowserAnimationsModule
+  ],
+  entryComponents: [
+    PlayerOptionsDialogComponent,
+    PlayerChooserDialogComponent
   ],
   providers: [
     DataService,

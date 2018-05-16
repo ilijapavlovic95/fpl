@@ -32,15 +32,7 @@ export class TeamComponent implements OnInit {
     }
 
     generateNextMatchesArray(numberOfGameweeks: number) {
-        const matchesArr = [];
-        const nextGW: string = this.dataService.getNextGameweek();
-        const gwIndex = Number(nextGW.split(' ')[1]) - 1; // gameweek 34 is at index 33
-        const topIndex = gwIndex + numberOfGameweeks > 38 ? 38 : gwIndex + numberOfGameweeks;
-        for (let index = gwIndex; index < topIndex; index++) {
-            const fixture = this.team.fixtures[index];
-            matchesArr.push(fixture);
-        }
-        return matchesArr;
+        return this.dataService.generateNextMatchesArray(numberOfGameweeks, this.team);
     }
 
     generateStringForView(fixture: Gameweek) {
@@ -48,20 +40,6 @@ export class TeamComponent implements OnInit {
     }
 
     calculateNextMatchesValue(numberOfGameweeks: number) {
-        const matchesArr = this.generateNextMatchesArray(numberOfGameweeks);
-        let sumValue = 0;
-        let countMatches = 0;
-        matchesArr.forEach((gameweek: Gameweek) => {
-            gameweek.matches.forEach(match => {
-                sumValue += match.match_value;
-                countMatches++;
-            });
-        });
-        const calculatedValues = {
-            sum_value: sumValue,
-            matches_count: countMatches,
-            avg_value_per_match: (sumValue / countMatches).toFixed(2)
-        };
-        return calculatedValues;
+        return this.dataService.calculateNextMatchesValue(numberOfGameweeks, this.team);
     }
 }

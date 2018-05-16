@@ -5,6 +5,7 @@ import { MyTeamService } from './../../services/my-team.service';
 import { DataService } from './../../services/data.service';
 import { MyTeam } from './../../models/myteam.model';
 
+
 @Component({
     selector: 'fpl-formation',
     templateUrl: './formation.component.html',
@@ -14,7 +15,9 @@ export class FormationComponent implements OnInit {
 
     myteam: MyTeam;
 
-    constructor(private dataService: DataService, private myteamService: MyTeamService) { }
+    constructor(
+        private dataService: DataService,
+        private myteamService: MyTeamService) { }
 
     ngOnInit(): void {
         this.myteam = this.myteamService.myTeam;

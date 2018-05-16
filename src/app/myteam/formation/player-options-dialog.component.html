@@ -1,0 +1,26 @@
+<div class="dialog-header">
+  <div class="player-details">
+    <h2 mat-dialog-title>{{ player.detail.name.toUpperCase() }} ({{ player.team.name }})</h2>
+  </div>
+</div>
+
+<div class="dialog-content">
+
+  <div class="player-options">
+    <div class="player-first-team" (click)="closeDialog('player-first-team')">
+      <h6>FIRST TEAM</h6>
+    </div>
+
+    <div class="player-captain" (click)="closeDialog('player-captain')">
+      <h6>CAPTAIN</h6>
+    </div>
+
+  </div>
+
+  <div class="change-player">
+    <div class="change-player-btn" (click)="closeDialog('change-player')">
+      <h6>CHANGE PLAYER</h6>
+    </div>
+  </div>
+
+</div>

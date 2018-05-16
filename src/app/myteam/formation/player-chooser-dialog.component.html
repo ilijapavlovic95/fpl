@@ -1,0 +1,42 @@
+<input mat-dialog-title class="form-control" id="playerSearch" type="text" list="players" #playerInput placeholder="Search for player"
+    (keyup)="onKeyUp(playerInput.value)">
+
+<div mat-dialog-content id="players-div">
+    <div class="player-dialog" *ngFor="let player of pinnedPlayers" 
+    [style.background]="player.team.color" [ngClass]="{'bold-border': isSelected(player)}">
+        <div class="player-dialog-team">
+            <img [src]="getTeamLogoSrc(player)" [alt]="player.name" width="40px" height="40px"
+            (click)="unpinPlayer(player)" style="cursor: pointer" [style.opacity]="getOpacity(player)">
+        </div>
+        <div class="player-dialog-name" [style.color]="player.team.color_text">
+            {{ player.name | uppercase }}
+        </div>
+        <div class="player-dialog-fixtures">
+            <small *ngFor="let gameweek of player.fixtures">
+                {{ generateFixtureForView(gameweek) }}
+            </small>
+        </div>
+    </div>
+
+    <div class="player-dialog" *ngFor="let player of sortedPlayers" 
+    [style.background]="player.team.color" [ngClass]="{'bold-border': isSelected(player)}">
+        <div class="player-dialog-team">
+            <img [src]="getTeamLogoSrc(player)" [alt]="player.name" width="40px" height="40px"
+            (click)="pinPlayerOnTop(player, playerInput)" style="cursor: pointer" [style.opacity]="getOpacity(player)">
+        </div>
+        <div class="player-dialog-name" [style.color]="player.team.color_text" (click)="selectPlayerIn(player)">
+            {{ player.name | uppercase }}
+        </div>
+        <div class="player-dialog-fixtures">
+            <small *ngFor="let gameweek of player.fixtures">
+                {{ generateFixtureForView(gameweek) }}
+            </small>
+        </div>
+    </div>
+</div>
+
+<div class="confirm-transfer" (click)="confirmTransfer()">
+    <h6>IN: {{ getPlayerInString() }}</h6>
+    <h5>CONFIRM</h5>
+    <h6>OUT: {{ playerOut.name }}</h6>
+</div>
